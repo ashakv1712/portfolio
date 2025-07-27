@@ -14,7 +14,8 @@ import {
   Calculator,
   Globe,
   Sparkles,
-  ChevronDown
+  ChevronDown,
+  Coffee
 } from 'lucide-react';
 
 // Your actual deployed projects
@@ -24,6 +25,7 @@ const projects = [
     title: "Motivational Quotes for Programmers",
     description: "An inspiring web application that generates motivational quotes specifically crafted for developers and programmers to boost productivity and morale.",
     url: "https://ai-web-app-three.vercel.app/",
+    image: "/screenshots/motivational-quotes.png",
     tech: ["Next.js", "AI/API", "React"],
     color: "from-blue-500 to-purple-600"
   },
@@ -32,6 +34,7 @@ const projects = [
     title: "Perfect Circle",
     description: "Interactive web application challenging users to draw the most perfect circle possible, with scoring and feedback mechanisms.",
     url: "https://perfect-circ-68jd.vercel.app/",
+    image: "/screenshots/perfect-circle.png",
     tech: ["JavaScript", "Canvas API", "CSS"],
     color: "from-green-500 to-teal-600"
   },
@@ -40,6 +43,7 @@ const projects = [
     title: "Purrfect Paws",
     description: "A delightful web application featuring cats, designed to bring joy and entertainment to cat lovers everywhere.",
     url: "https://bolt-cats.vercel.app/",
+    image: "/screenshots/purrfect-paws.png",
     tech: ["React", "Next.js", "Tailwind"],
     color: "from-orange-500 to-red-600"
   },
@@ -48,6 +52,7 @@ const projects = [
     title: "Health Data",
     description: "Comprehensive health data visualization and tracking application for monitoring personal wellness metrics and trends.",
     url: "https://health-data-nu.vercel.app/",
+    image: "/screenshots/health-data.png",
     tech: ["React", "Charts.js", "Data Visualization"],
     color: "from-purple-500 to-pink-600"
   },
@@ -56,6 +61,7 @@ const projects = [
     title: "Image Generator",
     description: "AI-powered image generation tool that creates custom images based on user prompts and specifications.",
     url: "https://ai-image-gen-beta.vercel.app/",
+    image: "/screenshots/image-generator.png",
     tech: ["Next.js", "AI/API", "Image Processing"],
     color: "from-indigo-500 to-blue-600"
   }
@@ -145,7 +151,6 @@ export default function Portfolio() {
             <h1 className="text-6xl md:text-8xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
               Asha Kripalani
             </h1>
-
             <p className="text-xl md:text-2xl text-white/80 mb-8 leading-relaxed">
               Teaching Python, JavaScript, Mathematics & English<br />
               <span className="text-blue-400">14+ years</span> of inspiring learners of all ages
@@ -313,8 +318,21 @@ export default function Portfolio() {
                 className="group relative"
               >
                 <div className="bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10 hover:border-white/20 transition-all duration-300">
-                  <div className={`h-48 bg-gradient-to-br ${project.color} relative overflow-hidden`}>
-                    <div className="absolute inset-0 bg-black/20" />
+                  <div className="h-48 relative overflow-hidden bg-gradient-to-br from-gray-800 to-gray-900">
+                    {/* Screenshot Image */}
+                    <img
+                      src={project.image}
+                      alt={`${project.title} screenshot`}
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      onError={(e) => {
+                        // Fallback to gradient if image fails to load
+                        e.currentTarget.style.display = 'none';
+                        e.currentTarget.parentElement.classList.add(`bg-gradient-to-br`, ...project.color.split(' '));
+                      }}
+                    />
+                    {/* Overlay */}
+                    <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
+                    {/* External Link Button */}
                     <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
                       <motion.a
                         href={project.url}
@@ -376,6 +394,21 @@ export default function Portfolio() {
             <p className="text-xl text-white/70 mb-12 max-w-2xl mx-auto">
               Interested in collaborating or have questions about my work? I'd love to hear from you!
             </p>
+            
+            {/* Buy Me a Coffee Button */}
+            <div className="mb-8">
+              <motion.a
+                href="https://www.buymeacoffee.com/ashakripalani"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="inline-flex items-center space-x-3 bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black px-8 py-4 rounded-full font-bold text-lg transition-all shadow-lg hover:shadow-xl"
+              >
+                <Coffee className="w-6 h-6" />
+                <span>Buy Me a Coffee</span>
+              </motion.a>
+            </div>
             
             <div className="flex justify-center space-x-6">
               <motion.a
